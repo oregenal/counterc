@@ -1,7 +1,7 @@
 CC=cc
 CFLAGS=-Wall -Wextra -std=c11 -pedantic
 BIN=dcount
-SRC=key.c
+SRC=main.c
 
 .PHONY:clean
 
