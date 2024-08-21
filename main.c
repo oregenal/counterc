@@ -32,6 +32,8 @@ int main(void)
 	   fclose(file);
 	}
 
+	printf("Current count: %d.\n", counter);
+
 	const char *dev = KEYBOARD;
 	struct input_event ev;
 	ssize_t n;
