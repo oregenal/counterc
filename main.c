@@ -41,7 +41,8 @@ int main(void)
 			}
 
 		if (ev.type == EV_KEY && ev.value >= 0 && ev.value <= 2)
-			printf("%s 0x%04x (%d)\n", evval[ev.value], (int)ev.code, (int)ev.code);
+			printf("%s 0x%04x (%d)\n", evval[ev.value], 
+					(int)ev.code, (int)ev.code);
 	}
 
 	fflush(stdout);
