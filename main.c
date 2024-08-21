@@ -7,7 +7,7 @@
 #include <stdio.h>
 
 #define KEYBOARD "/dev/input/by-path/pci-0000:00:14.0-usb-0:7:1.0-event-kbd"
-#define FILE_PATH "death_counter"
+#define FILE_PATH "death_counter.txt"
 
 //static const char *const evval[3] = {
 //	"RELEASED",
@@ -19,12 +19,14 @@ void update_file(int counter)
 {
 	FILE *file = fopen(FILE_PATH, "w");
 	printf("Counter: %d.\n", counter);
-	fwrite(&counter, sizeof(counter), 1, file);
+	fprintf(file, "%d", counter);
+	//fwrite(&counter, sizeof(counter), 1, file);
 	fclose(file);
 }
 
 int main(void)
 {
+	char score[7];
 	int counter;
 
 	FILE *file = fopen(FILE_PATH, "r");
@@ -32,7 +34,8 @@ int main(void)
 		// perror("fopen");
 		counter = 0;
 	} else {
-       fread(&counter, sizeof(counter), 1, file);
+       fread(score, sizeof(counter), 1, file);
+	   counter = atoi(score);
 	   fclose(file);
 	}
 
