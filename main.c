@@ -9,18 +9,11 @@
 #define KEYBOARD "/dev/input/by-path/pci-0000:00:14.0-usb-0:7:1.0-event-kbd"
 #define FILE_PATH "death_counter.txt"
 
-//static const char *const evval[3] = {
-//	"RELEASED",
-//	"PRESSED ",
-//	"REPEATED"
-//};
-
 void update_file(int counter)
 {
 	FILE *file = fopen(FILE_PATH, "w");
 	printf("Counter: %d.\n", counter);
 	fprintf(file, "%d", counter);
-	//fwrite(&counter, sizeof(counter), 1, file);
 	fclose(file);
 }
 
@@ -62,9 +55,6 @@ int main(void)
 				break;
 			}
 
-		//if (ev.type == EV_KEY && ev.value >= 0 && ev.value <= 2)
-		//	printf("%s 0x%04x (%d)\n", evval[ev.value], 
-		//			(int)ev.code, (int)ev.code);
 		if (ev.type == EV_KEY && ev.value == 0) {
 			if (ev.code == 78) {
 				++counter;
