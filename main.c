@@ -52,15 +52,14 @@ int main(void)
 
 	FILE *file = fopen(FILE_PATH, "r");
 	if (file == NULL) {
-		// perror("fopen");
 		counter = 0;
+		update_file(counter);
 	} else {
-       fread(score, sizeof(counter), 1, file);
-	   counter = atoi(score);
-	   fclose(file);
+		fread(score, sizeof(counter), 1, file);
+		counter = atoi(score);
+		printf("Counter: %d.\n", counter);
+		fclose(file);
 	}
-
-	printf("Current count: %d.\n", counter);
 
 	while (1) {
 		n = read(fd, &ev, sizeof ev);
