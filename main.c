@@ -37,6 +37,16 @@ int main(void)
 	   fclose(file);
 	}
 
+	const char *dev = KEYBOARD;
+	struct input_event ev;
+	ssize_t n;
+	int fd;
+	fd = open(dev, O_RDONLY);
+	if (fd == -1) {
+		fprintf(stderr, "Cannot open %s: %s.\n", dev, strerror(errno));
+		return EXIT_FAILURE;
+	}
+
 	if (seteuid(ruid) < 0) {
 		fprintf(stderr, 
 				"WARNING: Could not set Effective UID: %s\n", 
@@ -50,16 +60,6 @@ int main(void)
 	}
 
 	printf("Current count: %d.\n", counter);
-
-	const char *dev = KEYBOARD;
-	struct input_event ev;
-	ssize_t n;
-	int fd;
-	fd = open(dev, O_RDONLY);
-	if (fd == -1) {
-		fprintf(stderr, "Cannot open %s: %s.\n", dev, strerror(errno));
-		return EXIT_FAILURE;
-	}
 
 	while (1) {
 		n = read(fd, &ev, sizeof ev);
