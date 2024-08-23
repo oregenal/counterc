@@ -1,3 +1,5 @@
+#define _GNU_SOURCE
+
 #include <stdlib.h>
 #include <unistd.h>
 #include <fcntl.h>
@@ -19,6 +21,9 @@ void update_file(int counter)
 
 int main(void)
 {
+	uid_t ruid = getuid();
+	uid_t rgid = getgid();
+
 	char score[7];
 	int counter;
 
@@ -30,6 +35,18 @@ int main(void)
        fread(score, sizeof(counter), 1, file);
 	   counter = atoi(score);
 	   fclose(file);
+	}
+
+	if (seteuid(ruid) < 0) {
+		fprintf(stderr, 
+				"WARNING: Could not set Effective UID: %s\n", 
+				strerror(errno));
+	}
+
+	if (setegid(rgid) < 0) {
+		fprintf(stderr, 
+				"WARNING: Could not set Effective GID: %s\n", 
+				strerror(errno));
 	}
 
 	printf("Current count: %d.\n", counter);
