@@ -9,7 +9,6 @@
 #include <stdio.h>
 
 #define KEYBOARD "/dev/input/event2"
-//#define KEYBOARD "/dev/input/by-path/pci-0000:00:14.0-usb-0:7:1.0-event-kbd"
 #define FILE_PATH "death_counter.txt"
 
 void update_file(int counter)
