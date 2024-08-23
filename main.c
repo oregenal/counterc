@@ -24,19 +24,6 @@ int main(void)
 	uid_t ruid = getuid();
 	uid_t rgid = getgid();
 
-	char score[7];
-	int counter;
-
-	FILE *file = fopen(FILE_PATH, "r");
-	if (file == NULL) {
-		// perror("fopen");
-		counter = 0;
-	} else {
-       fread(score, sizeof(counter), 1, file);
-	   counter = atoi(score);
-	   fclose(file);
-	}
-
 	const char *dev = KEYBOARD;
 	struct input_event ev;
 	ssize_t n;
@@ -57,6 +44,19 @@ int main(void)
 		fprintf(stderr, 
 				"WARNING: Could not set Effective GID: %s\n", 
 				strerror(errno));
+	}
+
+	char score[7];
+	int counter;
+
+	FILE *file = fopen(FILE_PATH, "r");
+	if (file == NULL) {
+		// perror("fopen");
+		counter = 0;
+	} else {
+       fread(score, sizeof(counter), 1, file);
+	   counter = atoi(score);
+	   fclose(file);
 	}
 
 	printf("Current count: %d.\n", counter);
