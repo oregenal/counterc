@@ -1,20 +1,20 @@
 # Counter
 
-Simple counter, that read keyboard device & on + increase counter in a file
+Simple countcer, that read keyboard device & on + increase countcer in a file
 
 ## Seteuid example
 
 Copy to PATH dir
 ```console
-cp dcount /usr/local/bin
+cp countc /usr/local/bin
 ```
 
 Set owner.
 ```console
-chown root:input dcount
+chown root:input countc
 ```
 
 Set stiky bit for group `input`
 ```console
-chmod g+s dcount
+chmod g+s countc
 ```
