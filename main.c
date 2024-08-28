@@ -9,11 +9,13 @@
 #include <stdio.h>
 
 #define KEYBOARD "/dev/input/event2"
-#define FILE_PATH "death_counter.txt"
 
-void update_file(int counter)
+#define USAGE_MESSAGE "Usage: %s <counter_file.txt>\n" \
+	"AUGHTUNG!! txt - suffix is reuired for OBS!\n"
+
+void update_file(int counter, char *argv)
 {
-	FILE *file = fopen(FILE_PATH, "w");
+	FILE *file = fopen(argv, "w");
 	printf("Counter: %d.\n", counter);
 	fprintf(file, "%d", counter);
 	fclose(file);
@@ -22,8 +24,7 @@ void update_file(int counter)
 void check_file(int argc, char **argv)
 {
 	if (argc != 2) {
-		fprintf(stderr, "Usage: %s <counter_file.txt>\
-				txt - suffix is reuired!\n", argv[0]);
+		fprintf(stderr, USAGE_MESSAGE, argv[0]);
 		exit(EXIT_FAILURE);
 	}
 }
@@ -60,10 +61,10 @@ int main(int argc, char **argv)
 	char score[7];
 	int counter;
 
-	FILE *file = fopen(FILE_PATH, "r");
+	FILE *file = fopen(argv[1], "r");
 	if (file == NULL) {
 		counter = 0;
-		update_file(counter);
+		update_file(counter, argv[1]);
 	} else {
 		fread(score, sizeof(counter), 1, file);
 		counter = atoi(score);
@@ -87,10 +88,10 @@ int main(int argc, char **argv)
 		if (ev.type == EV_KEY && ev.value == 0) {
 			if (ev.code == 78) {
 				++counter;
-				update_file(counter);
+				update_file(counter, argv[1]);
 			} else if (ev.code == 74) {
 				--counter;
-				update_file(counter);
+				update_file(counter, argv[1]);
 			}
 		}
 	}
