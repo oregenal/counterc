@@ -19,8 +19,19 @@ void update_file(int counter)
 	fclose(file);
 }
 
-int main(void)
+void check_file(int argc, char **argv)
 {
+	if (argc != 2) {
+		fprintf(stderr, "Usage: %s <counter_file.txt>\
+				txt - suffix is reuired!\n", argv[0]);
+		exit(EXIT_FAILURE);
+	}
+}
+
+int main(int argc, char **argv)
+{
+	check_file(argc, argv);
+
 	uid_t ruid = getuid();
 	uid_t rgid = getgid();
 
