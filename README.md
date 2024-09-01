@@ -9,12 +9,12 @@ Copy to PATH dir
 cp countc /usr/local/bin
 ```
 
-Set owner.
+Set owner group `input`
 ```console
 chown root:input countc
 ```
 
-Set stiky bit for group `input`
+Set set-bit for group
 ```console
 chmod g+s countc
 ```
