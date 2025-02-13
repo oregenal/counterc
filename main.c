@@ -72,18 +72,17 @@ int main(int argc, char **argv)
 		fclose(file);
 	}
 
-	while (1) {
+	for (;;) {
 		n = read(fd, &ev, sizeof ev);
 		if (n == (ssize_t)-1) {
 			if (errno == EINTR)
 				continue;
 			else
 				break;
-		} else
-			if (n != sizeof ev) {
-				errno = EIO;
-				break;
-			}
+		} else if (n != sizeof ev) {
+			errno = EIO;
+			break;
+		}
 
 		if (ev.type == EV_KEY && ev.value == 0) {
 			if (ev.code == 78) {
